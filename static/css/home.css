@@ -1,0 +1,90 @@
+/* Map and Map Widgets */
+#map {
+    height: 95%;
+    width: 100%;
+    margin: auto;
+}
+#layerToggle {
+    top: 20px;
+    right: 20px;
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    opacity: 0.75;
+}
+
+/* Scenarios Dialog */
+#scenarioDialog {
+    height: 50%;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+    overflow-y: auto;
+}
+
+#newScenarioButton {margin: 2.5% auto;}
+#scenariosList {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+}
+#scenariosList tr:nth-child(even) {background-color: #f2f2f2;}
+#scenariosList tr:hover {background-color: #ddd;}
+#scenariosList td {padding: 0.5%;}
+
+/*!* New Scenario Dialog *!*/
+#newScenarioDialog {
+    height: 50%;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+}
+#saveScenario {
+    display: block;
+    margin: 2.5% auto;
+}
+
+/*!* Scenario Info Dialog *!*/
+#scenarioInfoDialog {
+    height: 50%;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+}
+
+/* Edit Scenario Dialog */
+#editScenarioDialog {
+    height: 50%;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    background-color: white;
+}
+
+/* Menu Bar */
+#mainMenu {
+    text-align: center;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family:  "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+
+/* info icon */
+.info-icon {
+    background-image: url("http://static4.wikia.nocookie.net/__cb20131121214007/destinypedia/images/7/71/Information_Icon.svg");
+    height: 16px;
+    width: 16px;
+    position: relative;
+    left: 20%;
+}

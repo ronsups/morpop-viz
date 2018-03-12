@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- DojoConfig -->
+    <script type="text/javascript">
+        dojoConfig = {
+            isDebug: true,
+            parseOnLoad: true,
+            packages: [{
+                name: "js",
+                location: location.pathname.replace(/\/[^/]*$/, '') +'/static/js'
+            }],
+            has: {
+                "esri-featurelayer-webgl": 1
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/dijit/themes/claro/claro.css">
+
+    <!-- ArcGIS API -->
+    <script src="https://js.arcgis.com/4.6/"></script>
+
+    <!-- My Code -->
+    <script src="../static/js/home.js"></script>
+    <link rel="stylesheet" href="../static/css/home.css">
+
+    <!-- Copied Claro and Dijit Stylesheets -->
+    <link rel="stylesheet" href="../static/css/claro-dialog.css">
+    <link rel="stylesheet" href="../static/css/claro-menu.css">
+    <link rel="stylesheet" href="../static/css/claro-button.css">
+    <link rel="stylesheet" href="../static/css/icons/dijit-icons-commonIcons.css">
+    <link rel="stylesheet" href="../static/css/icons/dijit-icons-editorIcons.css">
+
+    <title>morPOP</title>
+
+</head>
+
+<body>
+<!-- Map -->
+<div id="map"></div>
+
+<!-- Menu -->
+<div id="mainMenu" data-dojo-type="dijit/MenuBar">
+    <div id="scenarioButton" data-dojo-type="dijit/MenuBarItem" onclick="showScenariosDialog();">Scenarios</div>
+    <div id="queueButton" data-dojo-type="dijit/MenuBarItem">Queue</div>
+</div>
+
+<!-- Scenarios Dialog -->
+<div class="dijitHidden">
+    <div data-dojo-type="dijit/Dialog" data-dojo-props="title:'Scenarios', closable: true" id="scenarioDialog">
+
+        <!-- New Scenario Button -->
+        <div id="newScenarioButton">
+            New Scenario
+            <button onclick="showNewScenarioDialog()" data-dojo-type="dijit/form/Button" type="button">+</button>
+        </div>
+
+        <!-- Scenarios List -->
+        <table id="scenariosList"></table>
+
+        <!-- NEW / EDIT SCENARIO -->
+        <div data-dojo-type="dijit/Dialog" data-dojo-props="title:'New Scenario', closable: true" id="newScenarioDialog">
+
+            <!-- Scenario Name -->
+            <div class="field">
+                <label for="scenarioName">Scenario Name:</label>
+                <input id="scenarioName" value=""
+                       data-dojo-type="dijit/form/TextBox"
+                       data-dojo-props="intermediateChanges:true" />
+            </div>
+
+            <!-- Save Scenario Button -->
+            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconSave'" type="button" id="saveScenarioButton">Save Scenario</button>
+        </div>
+
+        <!-- SCENARIO INFO -->
+        <div data-dojo-type="dijit/Dialog" data-dojo-props="closable: true" id="scenarioInfoDialog">
+
+            <!-- Scenario Name -->
+            <div class="field">
+                <label for="scenarioNameInfo">Scenario Name:</label>
+                <span id="scenarioNameInfo" style="font-weight:bold;"></span>
+            </div>
+
+            <!-- Edit Scenario Button -->
+            <button  data-dojo-type="dijit/form/Button" type="button" id="editScenarioFromInfo">Edit Scenario</button>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+</html>
