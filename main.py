@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 import json
 
 
-
 app = Flask(__name__)
-app.secret_key = "^\x94+\xde\xee\xb3[\x08\xc8\xb1\xe5\xf9~=\x86^\x9d\x19\xdb\xfbC+\xb5\xe7"
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/webapp'
+db = SQLAlchemy(app)
 
 
 @app.route('/')
