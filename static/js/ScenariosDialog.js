@@ -18,6 +18,7 @@ define([
     // Show the Scenarios Dialog
     showScenariosDialog = function() {
         registry.byId("scenarioDialog").show();
+        updateScenariosList();
     };
     // Hide the Scenarios Dialog
     hideScenariosDialog = function() {

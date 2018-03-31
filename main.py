@@ -1,12 +1,8 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import json
-
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/webapp'
-db = SQLAlchemy(app)
+from app import app
+from models import Scenario
 
 
 @app.route('/')
@@ -23,7 +19,7 @@ def show_or_add_scenario():
         return 'New Scenario: ' + str(new_scenario)
 
     elif request.method == 'GET':
-        return 'List of scenarios'
+        return json.dumps({'scenarios': Scenario.get_all()}), 200
 
 
 @app.route('/scenario/<s_id>', methods=['GET', 'PUT', 'DELETE'])
