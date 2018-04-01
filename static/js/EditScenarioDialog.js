@@ -39,7 +39,7 @@ define([
         readScenario(id, function (scenario) {
             scenario.name = registry.byId("scenarioName").get("value").trim();
             updateScenario(scenario, function () {
-                updateScenariosList().then(function(){
+                updateScenariosList(function() {
                     registry.byId("scenarioName").set("value","");
                     saveEditHandler.remove();
 
@@ -49,8 +49,6 @@ define([
                     }
                     hideEditScenarioDialog();
                 });
-
-
             });
         });
     };

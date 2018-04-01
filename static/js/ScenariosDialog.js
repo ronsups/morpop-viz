@@ -15,6 +15,8 @@ define([
 
     parser.parse();
 
+    var noop = function () {};
+
     // Show the Scenarios Dialog
     showScenariosDialog = function() {
         registry.byId("scenarioDialog").show();
@@ -25,7 +27,9 @@ define([
         registry.byId("scenarioDialog").hide();
     };
 
-    updateScenariosList = function () {
+    updateScenariosList = function (callback) {
+        var callback = callback || noop;
+
         var scenariosList = dom.byId("scenariosList");
         domConstruct.empty(scenariosList);
 
@@ -58,6 +62,7 @@ define([
             });
 
             parser.parse();
+            callback();
         });
 
     };

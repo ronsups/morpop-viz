@@ -17,8 +17,10 @@ define([
     // Show the New Scenario Dialog
     showScenarioInfoDialog = function(id){
         readScenario(id, function (scenario) {
+
             registry.byId("scenarioInfoDialog").set("title", scenario.name);
             dom.byId("scenarioNameInfo").innerHTML = scenario.name;
+            dom.byId("scenarioLastModifiedDt").innerHTML = scenario.last_modified_dt;
 
             editInfoHandler = on(dom.byId("editScenarioFromInfo"),"click", dojo.partial(showEditScenarioDialog,id,true));
             registry.byId("scenarioInfoDialog").show();
