@@ -29,49 +29,53 @@ define([
         var scenariosList = dom.byId("scenariosList");
         domConstruct.empty(scenariosList);
 
-        readScenarios().forEach(function (scenario) {
+        readScenarios(function (scenarios) {
 
-            domConstruct.create("tr", {
-                innerHTML: "<td>" + scenario.name + "</td>" +
-                // info button
-                "<td><button onclick='showScenarioInfoDialog(" + String(scenario.id) + ")'>i</button></td>" +
+            scenarios.forEach(function(scenario) {
+                domConstruct.create("tr", {
+                    innerHTML: "<td>" + scenario.name + "</td>" +
+                    // info button
+                    "<td><button onclick='showScenarioInfoDialog(" + String(scenario.id) + ")'>i</button></td>" +
 
-                // edit button
-                "<td><button data-dojo-type='dijit/form/Button' type='button'" +
-                "data-dojo-props=\"iconClass: 'dijitIcon dijitIconEdit'\"" +
-                "onclick='showEditScenarioDialog(" + String(scenario.id) + ")'></button></td>" +
+                    // edit button
+                    "<td><button data-dojo-type='dijit/form/Button' type='button'" +
+                    "data-dojo-props=\"iconClass: 'dijitIcon dijitIconEdit'\"" +
+                    "onclick='showEditScenarioDialog(" + String(scenario.id) + ")'></button></td>" +
 
-                // duplicate button
-                "<td><button data-dojo-type='dijit/form/Button' type='button' " +
-                "data-dojo-props=\"iconClass: 'dijitEditorIcon dijitEditorIconCopy'\"" +
-                "onclick='duplicateScenario(" + String(scenario.id) + ")'></button></td>" +
+                    // duplicate button
+                    "<td><button data-dojo-type='dijit/form/Button' type='button' " +
+                    "data-dojo-props=\"iconClass: 'dijitEditorIcon dijitEditorIconCopy'\"" +
+                    "onclick='duplicateScenario(" + String(scenario.id) + ")'></button></td>" +
 
-                // run button
-                "<td><button onclick='runScenario(" + String(scenario.id) + ")'>r</button></td>" +
+                    // run button
+                    "<td><button onclick='runScenario(" + String(scenario.id) + ")'>r</button></td>" +
 
-                // delete button
-                "<td><button data-dojo-type='dijit/form/Button' type='button' " +
-                "data-dojo-props=\"iconClass: 'dijitIcon dijitIconDelete'\"" +
-                "onclick='removeScenario(" + String(scenario.id) + ")'></button></td>"
-            }, scenariosList);
+                    // delete button
+                    "<td><button data-dojo-type='dijit/form/Button' type='button' " +
+                    "data-dojo-props=\"iconClass: 'dijitIcon dijitIconDelete'\"" +
+                    "onclick='removeScenario(" + String(scenario.id) + ")'></button></td>"
+                }, scenariosList);
+            });
+
+            parser.parse();
         });
 
-        parser.parse();
     };
 
     duplicateScenario = function(id) {
-        var scenario = Object.assign({}, readScenario(id));
-        createScenario(scenario);
-        updateScenariosList();
+        readScenario(id, function (s) {
+            var scenario = Object.assign({}, s);
+            createScenario(scenario, updateScenariosList);
+        });
     };
 
     runScenario = function (id) {
-        var scenario = readScenario(id);
-        console.log(scenario);
+        readScenario(id, function (scenario) {
+            console.log(scenario);
+        });
     };
 
     removeScenario = function (id) {
-        deleteScenario(id);
-        updateScenariosList();
+        deleteScenario(id, updateScenariosList);
     }
 });

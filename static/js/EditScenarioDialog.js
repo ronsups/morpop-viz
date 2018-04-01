@@ -18,12 +18,14 @@ define([
     showEditScenarioDialog = function(id, fromInfo){
         editFromInfo = fromInfo;
 
-        var scenario = readScenario(id);
-        registry.byId("newScenarioDialog").set("title", "Edit " + scenario.name);
-        registry.byId("scenarioName").set("value", scenario.name);
-        saveEditHandler = on(dom.byId("saveScenarioButton"),"click",dojo.partial(saveEditedScenario,id));
+        readScenario(id, function (scenario) {
+            registry.byId("newScenarioDialog").set("title", "Edit " + scenario.name);
+            registry.byId("scenarioName").set("value", scenario.name);
+            saveEditHandler = on(dom.byId("saveScenarioButton"),"click",dojo.partial(saveEditedScenario,id));
 
-        registry.byId("newScenarioDialog").show();
+            registry.byId("newScenarioDialog").show();
+        });
+
     };
 
     // Hide the New Scenario Dialog
@@ -34,18 +36,22 @@ define([
     // Save scenario
     saveEditedScenario = function (id) {
 
-        var scenario = readScenario(id);
-        scenario.name = registry.byId("scenarioName").get("value").trim();
-        updateScenario(scenario);
-        updateScenariosList();
+        readScenario(id, function (scenario) {
+            scenario.name = registry.byId("scenarioName").get("value").trim();
+            updateScenario(scenario, function () {
+                updateScenariosList().then(function(){
+                    registry.byId("scenarioName").set("value","");
+                    saveEditHandler.remove();
 
-        registry.byId("scenarioName").set("value","");
-        saveEditHandler.remove();
+                    if (editFromInfo) {
+                        hideScenarioInfoDialog();
+                        editFromInfo = false;
+                    }
+                    hideEditScenarioDialog();
+                });
 
-        if (editFromInfo) {
-            hideScenarioInfoDialog();
-            editFromInfo = false;
-        }
-        hideEditScenarioDialog();
+
+            });
+        });
     };
 });

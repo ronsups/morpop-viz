@@ -1,85 +1,77 @@
 define([
     'dojo/request'
 ], function (request) {
-    var scenarios = [];
 
-
-    createScenario = function(scenario) {
-        scenario.id = scenarios.length > 0 ? scenarios[scenarios.length-1].id + 1 : 1;
-        scenarios.push(scenario);
+    createScenario = function(scenario, callback) {
 
         // Store in database
         request.post('/scenario', {
             data: JSON.stringify(scenario)
         }).then(
             function (res) {
-                console.log(res)
+                // console.log(res)
+                callback();
             },
             function (err) {
-                console.log(err)
+                console.log("Create Error: ", err);
             }
         );
     };
 
-    readScenarios =  function () {
+    readScenarios =  function (callback) {
+
         // Retrieve from database
         request.get('/scenario').then(
             function(res){
-                console.log(res);
+                var data = JSON.parse(res);
+                callback(data.scenarios);
             },
             function (err) {
-                console.log(err);
+                console.log("Read Error: ", err);
             }
         );
-
-        return scenarios;
     };
 
-    readScenario =  function (id) {
+    readScenario =  function (id, callback) {
+
         // Read from database
         request.get('/scenario/' + String(id)).then(
             function (res) {
-                console.log(res)
+                var data = JSON.parse(res);
+                callback(data.scenario);
             },
             function (err) {
-                console.log(err)
+                console.log("Read Error scenario id " + String(id) + ": ", err);
             }
         );
-
-        return scenarios.filter(function(s) {return s.id == id})[0];
     };
 
-    updateScenario = function(scenario) {
+    updateScenario = function(scenario, callback) {
         // Edit database
         request.put('/scenario/' + String(scenario.id), {
             data: JSON.stringify(scenario)
         }).then(
             function (res) {
-                console.log(res)
+                // console.log(res);
+                callback();
             },
             function (err) {
-                console.log(err)
+                console.log("Update Error scenario id " + String(scenario.id) + ": ", err);
             }
         );
-
-        scenarios[scenarios.findIndex(function(s){s.id == scenario.id})] = {
-            id: scenario.id,
-            name: scenario.name
-        }
     };
 
-    deleteScenario = function(id) {
+    deleteScenario = function(id, callback) {
         // Edit database
         request.del('/scenario/' + String(id)).then(
             function (res) {
-                console.log(res)
+                // console.log(res)
+                callback();
             },
             function (err) {
-                console.log(err)
+                console.log("Delete Error scenario id " + String(id) + ": ", err);
             }
         );
-
-        scenarios = scenarios.filter(function(s) {return s.id != id});
     };
 
 })
