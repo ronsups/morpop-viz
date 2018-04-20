@@ -27,8 +27,8 @@ define([
         registry.byId("scenarioDialog").hide();
     };
 
-    updateScenariosList = function (callback) {
-        var callback = callback || noop;
+    updateScenariosList = function (c) {
+        var callback = c || noop;
 
         var scenariosList = dom.byId("scenariosList");
         domConstruct.empty(scenariosList);

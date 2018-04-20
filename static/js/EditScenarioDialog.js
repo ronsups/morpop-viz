@@ -10,38 +10,38 @@ define([
     "dojo/domReady!"
 ], function(dom, on, registry, parser, Dialog, Button, TextBox, ScenariosDialog, ScenariosList) {
 
-    parser.parse();
     var editFromInfo = false;
-    saveEditHandler = null;
 
-    // Show the New Scenario Dialog
+    // Show the Edit Scenario Dialog
     showEditScenarioDialog = function(id, fromInfo){
         editFromInfo = fromInfo;
 
         readScenario(id, function (scenario) {
-            registry.byId("newScenarioDialog").set("title", "Edit " + scenario.name);
-            registry.byId("scenarioName").set("value", scenario.name);
-            saveEditHandler = on(dom.byId("saveScenarioButton"),"click",dojo.partial(saveEditedScenario,id));
+            console.log('scenario id: ', id);
+            registry.byId("editScenarioDialog").set("title", "Edit " + scenario.name);
+            registry.byId("editedScenarioName").set("value", scenario.name);
+            dom.byId("editedScenarioLastModifiedDt").innerHTML = scenario.last_modified_dt;
+            on(dom.byId("saveEditedScenarioButton"),"click",dojo.partial(saveEditedScenario,id));
 
-            registry.byId("newScenarioDialog").show();
+            registry.byId("editScenarioDialog").show();
         });
 
     };
 
     // Hide the New Scenario Dialog
     hideEditScenarioDialog = function () {
-        registry.byId("newScenarioDialog").hide();
+        registry.byId("editScenarioDialog").hide();
     };
 
     // Save scenario
     saveEditedScenario = function (id) {
-
+        console.log('scenario id: ', id);
         readScenario(id, function (scenario) {
-            scenario.name = registry.byId("scenarioName").get("value").trim();
+            scenario.name = registry.byId("editedScenarioName").get("value").trim();
+            console.log(scenario);
             updateScenario(scenario, function () {
                 updateScenariosList(function() {
-                    registry.byId("scenarioName").set("value","");
-                    saveEditHandler.remove();
+                    registry.byId("editedScenarioName").set("value","");
 
                     if (editFromInfo) {
                         hideScenarioInfoDialog();
@@ -52,4 +52,6 @@ define([
             });
         });
     };
+
+    parser.parse();
 });

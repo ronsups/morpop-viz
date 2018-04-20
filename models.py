@@ -59,6 +59,7 @@ class Scenario(db.Model):
 
     @staticmethod
     def update(edited_scenario):
+        print('### ' + str(edited_scenario))
         scenario = Scenario.query.filter_by(scenario_id=edited_scenario['id'], is_deleted=False).one()
         scenario.scenario_name = edited_scenario['name']
         scenario.last_modified_dt = datetime.now()

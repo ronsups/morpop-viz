@@ -63,21 +63,49 @@
         <!-- Scenarios List -->
         <table id="scenariosList"></table>
 
-        <!-- NEW / EDIT SCENARIO -->
-        <div data-dojo-type="dijit/Dialog" data-dojo-props="title:'New Scenario', closable: true" id="newScenarioDialog">
+        <!-- NEW SCENARIO -->
+        <div id="newScenarioDialog" data-dojo-type="dijit/Dialog"
+             data-dojo-props="title:'New Scenario', closable: true">
 
             <!-- Scenario Name -->
             <div class="field">
-                <label for="scenarioName">Scenario Name:</label>
-                <input id="scenarioName" value=""
+                <label for="newScenarioName">Scenario Name:</label>
+                <input id="newScenarioName" value=""
                        data-dojo-type="dijit/form/TextBox"
                        data-dojo-props="intermediateChanges:true" />
             </div>
 
+            <!-- Save Scenario Button -->
+            <button onclick="saveNewScenario()" id="saveNewScenarioButton" data-dojo-type="dijit/form/Button"
+                    data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconSave'" type="button">
+                Save Scenario
+            </button>
+        </div>
+
+        <!-- EDIT SCENARIO -->
+        <div id="editScenarioDialog" data-dojo-type="dijit/Dialog" data-dojo-props="closable: true">
+
+            <!-- Scenario Name -->
+            <div class="field">
+                <label for="editedScenarioName">Scenario Name:</label>
+                <input id="editedScenarioName" value=""
+                       data-dojo-type="dijit/form/TextBox"
+                       data-dojo-props="intermediateChanges:true" />
+            </div>
+
+            <!-- Last Modified Date -->
+            <div class="field">
+                <label for="editedScenarioLastModifiedDt">Last Modified:</label>
+                <span id="editedScenarioLastModifiedDt" style="font-weight:bold;"></span>
+            </div>
 
             <!-- Save Scenario Button -->
-            <button data-dojo-type="dijit/form/Button" data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconSave'" type="button" id="saveScenarioButton">Save Scenario</button>
+            <button id="saveEditedScenarioButton" data-dojo-type="dijit/form/Button"
+                    data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconSave'" type="button">
+                Save Scenario
+            </button>
         </div>
+
 
         <!-- SCENARIO INFO -->
         <div data-dojo-type="dijit/Dialog" data-dojo-props="closable: true" id="scenarioInfoDialog">

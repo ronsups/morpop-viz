@@ -27,6 +27,7 @@ def show_edit_delete_scenario(s_id):
 
     if request.method == 'PUT':
         edited_scenario = json.loads(request.get_data(as_text=True))
+        print('### ' + str(edited_scenario))
         edited_scenario_id = Scenario.update(edited_scenario)
         return json.dumps({'id': edited_scenario_id}), 204
 

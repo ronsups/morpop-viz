@@ -2,7 +2,11 @@ define([
     'dojo/request'
 ], function (request) {
 
-    createScenario = function(scenario, callback) {
+    var noop = function () {};
+
+    createScenario = function(scenario, c) {
+
+        var callback = c || noop;
 
         // Store in database
         request.post('/scenario', {
@@ -18,7 +22,9 @@ define([
         );
     };
 
-    readScenarios =  function (callback) {
+    readScenarios =  function (c) {
+
+        var callback = c || noop;
 
         // Retrieve from database
         request.get('/scenario').then(
@@ -32,7 +38,9 @@ define([
         );
     };
 
-    readScenario =  function (id, callback) {
+    readScenario =  function (id, c) {
+
+        var callback = c || noop;
 
         // Read from database
         request.get('/scenario/' + String(id)).then(
@@ -46,7 +54,10 @@ define([
         );
     };
 
-    updateScenario = function(scenario, callback) {
+    updateScenario = function(scenario, c) {
+
+        var callback = c || noop;
+        console.log(scenario)
         // Edit database
         request.put('/scenario/' + String(scenario.id), {
             data: JSON.stringify(scenario)
@@ -61,7 +72,10 @@ define([
         );
     };
 
-    deleteScenario = function(id, callback) {
+    deleteScenario = function(id, c) {
+
+        var callback = c || noop;
+
         // Edit database
         request.del('/scenario/' + String(id)).then(
             function (res) {

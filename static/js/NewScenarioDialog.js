@@ -10,30 +10,29 @@ define([
 ], function(dom, on, registry, parser, Dialog, Button, TextBox, ScenariosList) {
 
     parser.parse();
-    saveNewHandler = null;
 
     // Show the New Scenario Dialog
-    showNewScenarioDialog = function(){
-        saveNewHandler = on(dom.byId("saveScenarioButton"),"click",saveScenario);
+    showNewScenarioDialog = function () {
         registry.byId("newScenarioDialog").show();
     };
+
     // Hide the New Scenario Dialog
     hideNewScenarioDialog = function () {
         registry.byId("newScenarioDialog").hide();
     };
 
     // Save scenario
-    saveScenario = function () {
-        if (registry.byId("scenarioName").get("value").trim() != "") {
+    saveNewScenario = function () {
+        if (registry.byId("newScenarioName").get("value").trim() != "") {
             var scenario = {
-                name: registry.byId("scenarioName").get("value").trim()
+                name: registry.byId("newScenarioName").get("value").trim()
             };
-            createScenario(scenario);
-            updateScenariosList();
-
-            registry.byId("scenarioName").set("value","");
-            saveNewHandler.remove();
-            hideNewScenarioDialog();
+            createScenario(scenario, function () {
+                updateScenariosList(function () {
+                    registry.byId("newScenarioName").set("value","");
+                    hideNewScenarioDialog();
+                });
+            });
         }
     };
 
